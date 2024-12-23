@@ -47,14 +47,6 @@ export const authOptions: NextAuthOptions = {
       session.user = token.user as any;
       return session;
     },
-    async redirect({ url, baseUrl }) {
-      // Redirige siempre al dashboard tras el login
-      if (url.startsWith(baseUrl)) {
-        return "/dashboard";
-      }
-      console.log(baseUrl)
-      return baseUrl;
-    },
   },
 };
 const handler = NextAuth(authOptions);
