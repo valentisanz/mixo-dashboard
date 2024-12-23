@@ -15,8 +15,8 @@ const useFetch = <T>(
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [fetchUrl, setFetchUrl] = useState(url);
-  const [fetchMethod, setFetchMethod] = useState(method);
+  const [fetchUrl] = useState(url);
+  const [fetchMethod] = useState(method);
 
   const executeFetch = useCallback(
     async (body: any = initialBody) => {
@@ -40,8 +40,8 @@ const useFetch = <T>(
         }
         const result: T = await response.json();
         setData(result);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (error: any) {
+        setError(error.message);
       } finally {
         setLoading(false);
       }
