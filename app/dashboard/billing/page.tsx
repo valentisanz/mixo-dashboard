@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import useFetch from "@/hooks/useFetch";
 import { ServiceResponse } from "@/models/Service";
-import filterData from "@/lib/filterData";
+import filterData from "@/lib/filter-data";
 
 export default function Page() {
   const { data } = useFetch<ServiceResponse[]>("/api/services", "GET");

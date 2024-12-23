@@ -1,5 +1,5 @@
 "use client";
-import Message from "@/components/custom-skeleton";
+import Message from "@/components/message";
 import { MachineCard } from "@/components/machine-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import useFetch from "@/hooks/useFetch";
