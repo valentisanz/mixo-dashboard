@@ -1,5 +1,12 @@
 import mongoose, { Schema, Document } from "mongoose";
 
+export type MachineResponse = {
+  _id: string;
+  name: string;
+  status: string;
+  numServices: number;
+};
+
 export interface IMachine extends Document {
   name: string;
   status: string;
