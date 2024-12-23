@@ -1,7 +1,15 @@
 import mongoose, { Schema, Document } from "mongoose";
 
+export type ServiceResponse = {
+  _id: string;
+  type: string;
+  service: { alcohol: string; bib: string };
+  date: string;
+  price: string;
+  machine: string;
+};
+
 export interface IService extends Document {
-  id: number;
   type: string;
   service: { alcohol: string; bib: string };
   date: string;
