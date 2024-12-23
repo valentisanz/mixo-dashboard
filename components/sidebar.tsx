@@ -1,6 +1,4 @@
 "use client";
-
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -12,41 +10,24 @@ import {
   Boxes,
   LogOut,
 } from "lucide-react";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 import Image from "next/image";
+import { signOut } from "next-auth/react";
 
 interface SidebarProps {
-  onCollapse?: (collapsed: boolean) => void;
+  collapsed: boolean;
 }
 
 const menuItems = [
-  { name: "Máquinas", icon: Package, href: "/" },
-  { name: "Facturación", icon: CreditCard, href: "/facturacion" },
+  { name: "Máquinas", icon: Package, href: "/dashboard/machines" },
+  { name: "Facturación", icon: CreditCard, href: "/dashboard/billing" },
   { name: "Servicios", icon: Wrench, href: "/" },
   { name: "Stock", icon: Boxes, href: "/" },
   { name: "Mantenimiento", icon: Wrench, href: "/" },
   { name: "Configuración", icon: Settings, href: "/" },
 ];
 
-export function Sidebar({ onCollapse }: SidebarProps) {
-  const [collapsed, setCollapsed] = useState(false);
+export function Sidebar({ collapsed }: SidebarProps) {
   const pathname = usePathname();
-  const isSmallScreen = useMediaQuery("(max-width: 768px)");
-
-  useEffect(() => {
-    if (isSmallScreen) {
-      setCollapsed(true);
-    } else {
-      setCollapsed(false);
-    }
-  }, [isSmallScreen]);
-
-  useEffect(() => {
-    if (onCollapse) {
-      onCollapse(collapsed);
-    }
-  }, [collapsed, onCollapse]);
-
 
   return (
     <div
@@ -86,7 +67,7 @@ export function Sidebar({ onCollapse }: SidebarProps) {
         <Button
           variant="ghost"
           className={`w-full ${collapsed ? "justify-center" : "justify-start"}`}
-          onClick={() => console.log("Logout")}
+          onClick={() => signOut({ callbackUrl: "/" })}
         >
           <LogOut className={`h-5 w-5 ${collapsed ? "mx-auto" : "mr-2"}`} />
           {!collapsed && <span>Cerrar sesión</span>}
