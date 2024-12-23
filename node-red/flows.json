@@ -1,0 +1,80 @@
+[
+    {
+        "id": "494a16076d11b06a",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "dd17ac6ed0031d66",
+        "type": "inject",
+        "z": "494a16076d11b06a",
+        "name": "Start endpoint call",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 120,
+        "wires": [
+            [
+                "4c8247514fb97546"
+            ]
+        ]
+    },
+    {
+        "id": "4c8247514fb97546",
+        "type": "http request",
+        "z": "494a16076d11b06a",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:3000/api/machines/6768aada7b409af27d74aa48/services",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "6a444910314faf25"
+            ]
+        ]
+    },
+    {
+        "id": "6a444910314faf25",
+        "type": "debug",
+        "z": "494a16076d11b06a",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 120,
+        "wires": []
+    }
+]
