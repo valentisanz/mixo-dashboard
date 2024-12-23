@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { Machine } from "@/models/Machine";
 import { Service } from "@/models/Service";
 import { connectDB } from "@/lib/mongodb";
-import { validateSession } from "@/lib/validateSession";
+import { validateSession } from "@/lib/validate-session";
 
 export async function GET() {
   const validSession = await validateSession();

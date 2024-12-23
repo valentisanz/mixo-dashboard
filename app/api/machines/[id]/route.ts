@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Machine } from "@/models/Machine";
 import { connectDB } from "@/lib/mongodb";
-import { validateSession } from "@/lib/validateSession";
+import { validateSession } from "@/lib/validate-session";
 
 export async function PATCH(
   req: Request,
