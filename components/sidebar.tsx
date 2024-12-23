@@ -50,8 +50,8 @@ export function Sidebar({ collapsed }: SidebarProps) {
           {menuItems.map((item) => (
             <Link key={item.name} href={item.href}>
               <span
-                className={`flex items-center p-2 m-2 rounded-lg hover:bg-gray-400 ${
-                  pathname === item.href ? "bg-gray-700" : ""
+                className={`flex items-center p-2 m-2 rounded-lg  ${
+                  pathname === item.href ? "bg-gray-700" : "hover:bg-gray-400"
                 }`}
               >
                 <item.icon
@@ -61,7 +61,7 @@ export function Sidebar({ collapsed }: SidebarProps) {
                 />
                 {!collapsed && (
                   <span
-                    className={` ${pathname === item.href ? "text-white" : ""}`}
+                    className={`${pathname === item.href ? "text-white" : ""}`}
                   >
                     {item.name}
                   </span>
