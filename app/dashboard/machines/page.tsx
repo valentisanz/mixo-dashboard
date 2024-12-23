@@ -14,7 +14,7 @@ export default function Page() {
   } = useFetch<MachineResponse[]>("/api/machines", "GET");
 
   const content = useMemo(() => {
-    if (loading) return <Skeleton className="h-[200px] w-[350px] rounded-xl" />;
+    if (loading) return <Skeleton className="h-[200px] w-full rounded-xl" />;
 
     if (!machines || machines.length === 0) {
       return <Message message="No hay máquinas disponibles" />;

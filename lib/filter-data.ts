@@ -1,9 +1,14 @@
-export default function filterData(data: any[], searchTerm: string): any[] {
+export default function filterData<
+  T extends Record<
+    string,
+    string | number | { aclohol: string } | { bib: string }
+  >
+>(data: T[], searchTerm: string): T[] {
   if (!data) return [];
 
   const searchLower = searchTerm.toLowerCase();
 
-  const matchesSearch = (value: any): boolean => {
+  const matchesSearch = (value: unknown): boolean => {
     if (typeof value === "object" && value !== null) {
       return Object.values(value).some((subValue) => matchesSearch(subValue));
     }
