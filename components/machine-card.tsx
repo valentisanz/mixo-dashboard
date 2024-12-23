@@ -7,6 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import useFetch from "@/hooks/useFetch";
 import { Label } from "./ui/label";
+import { MachineResponse } from "@/models/Machine";
+
+type MachineCardProps = MachineResponse & {
+  updateData: () => void;
+};
 
 export function MachineCard({
   _id,
@@ -14,8 +19,11 @@ export function MachineCard({
   status,
   numServices,
   updateData,
-}: any) {
-  const { executeFetch } = useFetch<any>(`/api/machines/${_id}`, "PATCH");
+}: MachineCardProps) {
+  const { executeFetch } = useFetch<MachineResponse[]>(
+    `/api/machines/${_id}`,
+    "PATCH"
+  );
   const [isEditing, setIsEditing] = useState(false);
   const [editedData, setEdittedData] = useState({
     name,
@@ -23,7 +31,7 @@ export function MachineCard({
   });
 
   const handleSave = async () => {
-    const changes: { [key: string]: any } = {};
+    const changes: { [key: string]: string } = {};
 
     if (editedData.name !== name) {
       changes.name = editedData.name;
@@ -34,7 +42,7 @@ export function MachineCard({
 
     if (Object.keys(changes).length > 0) {
       await executeFetch(changes);
-      await updateData();
+      updateData();
     }
   };
 
