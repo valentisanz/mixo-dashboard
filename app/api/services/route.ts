@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/mongodb";
-import { validateSession } from "@/lib/validateSession";
+import { validateSession } from "@/lib/validate-session";
 import { Machine } from "@/models/Machine";
 import { Service } from "@/models/Service";
 import { NextRequest, NextResponse } from "next/server";
@@ -16,17 +16,7 @@ export async function GET() {
 
   try {
     const services = await Service.find();
-
-    const servicesWithServices = await Promise.all(
-      services.map(async (service) => {
-        const numServices = await Service.countDocuments({
-          service: service._id,
-        });
-        return { ...service.toObject(), numServices };
-      })
-    );
-
-    return NextResponse.json(servicesWithServices);
+    return NextResponse.json(services);
   } catch (error) {
     console.error("Error fetching services:", error);
     return NextResponse.json(
