@@ -1,11 +1,19 @@
 import { NextResponse } from "next/server";
 import { Machine } from "@/models/Machine";
 import { connectDB } from "@/lib/mongodb";
+import { validateSession } from "@/lib/validateSession";
 
 export async function PATCH(
   req: Request,
   { params }: { params: { id: string } }
 ) {
+  const validSession = await validateSession();
+  if (!validSession) {
+    return NextResponse.json(
+      { error: "User not logged in or does not exist" },
+      { status: 401 }
+    );
+  }
   await connectDB();
   const { id } = params;
 

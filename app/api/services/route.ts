@@ -1,9 +1,17 @@
 import { connectDB } from "@/lib/mongodb";
+import { validateSession } from "@/lib/validateSession";
 import { Machine } from "@/models/Machine";
 import { Service } from "@/models/Service";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
+  const validSession = await validateSession();
+  if (!validSession) {
+    return NextResponse.json(
+      { error: "User not logged in or does not exist" },
+      { status: 401 }
+    );
+  }
   await connectDB();
 
   try {
@@ -28,7 +36,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   await connectDB();
 
   try {
