@@ -13,7 +13,8 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
-  const { data: session, status } = useSession();
+  const [loading, setLoading] = useState(false);
+  const { data: session } = useSession();
   const router = useRouter();
   const [error, setError] = useState<string>();
 
@@ -25,7 +26,7 @@ export function LoginForm({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setLoading(true);
     const formData = new FormData(e.currentTarget);
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
@@ -40,11 +41,10 @@ export function LoginForm({
     } else {
       router.push("/dashboard/machines");
     }
+    setLoading(false);
   };
 
-  return status === "loading" ? (
-    <h1>Loading...</h1>
-  ) : (
+  return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="flex items-center">
@@ -68,7 +68,7 @@ export function LoginForm({
               </div>
               {error && <p className="text-red-500 text-sm m-0">{error}</p>}
               <Button type="submit" className="w-full">
-                {status ? "Iniciando sesión..." : "Acceder"}
+                {loading ? "Iniciando sesión..." : "Acceder"}
               </Button>
             </div>
           </form>
