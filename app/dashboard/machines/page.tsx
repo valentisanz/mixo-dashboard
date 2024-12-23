@@ -1,13 +1,14 @@
 "use client";
 import { MachineCard } from "@/components/machine-card";
 import useFetch from "@/hooks/useFetch";
+import { MachineResponse } from "@/models/Machine";
 
 export default function Page() {
   const {
     data: machines,
     loading,
     executeFetch,
-  } = useFetch<any>("/api/machines", "GET");
+  } = useFetch<MachineResponse[]>("/api/machines", "GET");
 
   return (
     <div>
