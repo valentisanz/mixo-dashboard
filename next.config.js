@@ -6,11 +6,6 @@ module.exports = {
         destination: "/dashboard/machines",
         permanent: true,
       },
-      {
-        source: "/",
-        destination: "/login",
-        permanent: true,
-      },
     ];
   },
 };
