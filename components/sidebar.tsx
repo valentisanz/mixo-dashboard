@@ -31,7 +31,7 @@ export function Sidebar({ collapsed }: SidebarProps) {
 
   return (
     <div
-      className={`flex flex-col h-screen bg-zinc-400 text-white transition-all duration-300 ease-in-out ${
+      className={`flex flex-col h-screen bg-zinc-300 text-black transition-all duration-300 ease-in-out ${
         collapsed ? "w-16" : "w-64"
       }`}
     >
@@ -50,14 +50,22 @@ export function Sidebar({ collapsed }: SidebarProps) {
           {menuItems.map((item) => (
             <Link key={item.name} href={item.href}>
               <span
-                className={`flex items-center p-2 rounded-lg hover:bg-gray-700 ${
+                className={`flex items-center p-2 m-2 rounded-lg hover:bg-gray-400 ${
                   pathname === item.href ? "bg-gray-700" : ""
                 }`}
               >
                 <item.icon
-                  className={`h-5 w-5 ${collapsed ? "mx-auto" : "mr-2"}`}
+                  className={`h-5 w-5 ${collapsed ? "mx-auto" : "mr-2"} ${
+                    pathname === item.href ? "text-white" : ""
+                  }`}
                 />
-                {!collapsed && <span>{item.name}</span>}
+                {!collapsed && (
+                  <span
+                    className={` ${pathname === item.href ? "text-white" : ""}`}
+                  >
+                    {item.name}
+                  </span>
+                )}
               </span>
             </Link>
           ))}
@@ -65,12 +73,14 @@ export function Sidebar({ collapsed }: SidebarProps) {
       </div>
       <div className="p-4">
         <Button
-          variant="ghost"
+          variant="destructive"
           className={`w-full ${collapsed ? "justify-center" : "justify-start"}`}
           onClick={() => signOut({ callbackUrl: "/" })}
         >
-          <LogOut className={`h-5 w-5 ${collapsed ? "mx-auto" : "mr-2"}`} />
-          {!collapsed && <span>Cerrar sesión</span>}
+          <LogOut className={`h-5 w-5 ${collapsed ? "mx-auto" : "mr-2"} `} />
+          {!collapsed && (
+            <span className="text-white font-bold">Cerrar sesión</span>
+          )}
         </Button>
       </div>
     </div>
