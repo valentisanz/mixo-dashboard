@@ -8,12 +8,9 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/mixo-db
+      - MONGODB_URI=mongodb://mongo:27017/mixodb
     depends_on:
       - mongo
-    volumes:
-      - .:/app
-      - /app/node_modules
 
   mongo:
     image: mongo:5.0
