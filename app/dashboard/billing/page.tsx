@@ -10,18 +10,14 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import useFetch from "@/hooks/useFetch";
+import { ServiceResponse } from "@/models/Service";
+import filterData from "@/lib/filterData";
 
 export default function Page() {
-  const { data } = useFetch<any>("/api/services", "GET");
+  const { data } = useFetch<ServiceResponse[]>("/api/services", "GET");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredData = data
-    ? data.filter((item) =>
-        Object.values(item).some((value) =>
-          value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      )
-    : [];
+  const filteredServices = filterData(data ?? [], searchTerm);
 
   return (
     <div>
@@ -47,13 +43,13 @@ export default function Page() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredData.map((item) => (
-              <TableRow key={item._id}>
-                <TableCell className="font-medium">{item._id}</TableCell>
-                <TableCell>{item.type}</TableCell>
-                <TableCell>{`${item.service.alcohol} + ${item.service.bib}`}</TableCell>
-                <TableCell>{item.date}</TableCell>
-                <TableCell className="text-right">{item.price} €</TableCell>
+            {filteredServices.map((service) => (
+              <TableRow key={service._id}>
+                <TableCell className="font-medium">{service._id}</TableCell>
+                <TableCell>{service.type}</TableCell>
+                <TableCell>{`${service.service.alcohol} + ${service.service.bib}`}</TableCell>
+                <TableCell>{service.date}</TableCell>
+                <TableCell className="text-right">{service.price} €</TableCell>
               </TableRow>
             ))}
           </TableBody>
